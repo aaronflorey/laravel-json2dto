@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Enums\CaseEnum;
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
+use Nette\PhpGenerator\Property;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
 use Spatie\LaravelData\Attributes\MapName;
@@ -11,23 +13,28 @@ use Spatie\LaravelData\Attributes\MapName;
 class PropertyGenerator
 {
 	public function __construct(
-		private bool $withSetters = false,
-		private bool $withGetters = false,
-		private CaseEnum $withCasing = CaseEnum::PASCAL
+		private readonly bool $withSetters = false,
+		private readonly bool $withGetters = false,
+		private readonly ?CaseEnum $withCasing = null,
+		private readonly bool $withDates = false,
 	) {
 	}
 
-	public function addProperty(PhpNamespace $namespace, ClassType $class, int|string $key, ?string $type)
+	public function addProperty(PhpNamespace $namespace, ClassType $class, int|string $key, ?string $type): Property
 	{
-		$type = $type ?: 'mixed';
+		$type = is_null($type) ? 'mixed' : $type;
 
 		$propertyName = match ($this->withCasing) {
 			CaseEnum::CAMEL  => Str::camel($key),
 			CaseEnum::SNAKE  => Str::snake($key),
 			CaseEnum::KEBAB  => Str::kebab($key),
 			CaseEnum::PASCAL => Str::studly($key),
-			default          => $key
+			default          => $key,
 		};
+
+		if ($type === Carbon::class) {
+			$namespace->addUse(Carbon::class);
+		}
 
 		$property = $class->addProperty($propertyName)
 			->setVisibility('public')
@@ -57,6 +64,14 @@ class PropertyGenerator
 		}
 
 		if (is_string($value)) {
+			if (!$this->withDates) {
+				return 'string';
+			}
+
+			if (preg_match('/^\d{4}-\d{2}-\d{2}/', $value)) {
+				return Carbon::class;
+			}
+
 			return 'string';
 		}
 
@@ -80,7 +95,6 @@ class PropertyGenerator
 			return 'float';
 		}
 
-		ray('invalid_type', $value);
 		return null;
 	}
 

@@ -12,7 +12,7 @@
 */
 
 $app = new LaravelZero\Framework\Application(
-    dirname(__DIR__)
+	dirname(__DIR__)
 );
 
 /*
@@ -27,13 +27,13 @@ $app = new LaravelZero\Framework\Application(
 */
 
 $app->singleton(
-    Illuminate\Contracts\Console\Kernel::class,
-    LaravelZero\Framework\Kernel::class
+	Illuminate\Contracts\Console\Kernel::class,
+	LaravelZero\Framework\Kernel::class
 );
 
 $app->singleton(
-    Illuminate\Contracts\Debug\ExceptionHandler::class,
-    Illuminate\Foundation\Exceptions\Handler::class
+	Illuminate\Contracts\Debug\ExceptionHandler::class,
+	Illuminate\Foundation\Exceptions\Handler::class
 );
 
 /*

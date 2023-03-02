@@ -3,15 +3,23 @@
 namespace App\Services;
 
 use RuntimeException;
+use Illuminate\Support\Str;
+use Nette\PhpGenerator\PhpFile;
 
 class NamespaceFolderResolver
 {
-	/** @var null|array */
-	private $composerConfig;
-
-	public function __construct(?array $composerConfig = null)
+	public function phpFileToPath(PhpFile $file): string
 	{
-		$this->composerConfig = $composerConfig;
+		$namespace = array_values($file->getNamespaces())[0];
+		$folder = $this->namespaceToFolder($namespace->getName());
+		$className = array_values($namespace->getClasses())[0]->getName();
+		$path = sprintf('%s/%s.php', $folder, $className);
+
+		if (Str::startsWith($path, 'App/')) {
+			$path = 'app' . substr($path, 3);
+		}
+
+		return $path;
 	}
 
 	public function namespaceToFolder(string $namespace): string
@@ -20,34 +28,11 @@ class NamespaceFolderResolver
 			throw new RuntimeException('Invalid namespace provided');
 		}
 
-		if ($this->composerConfig === null) {
-			return str_replace('\\', '/', $namespace);
-		}
-
-		foreach ($this->composerConfig['autoload']['psr-4'] ?? [] as $autoloadNamespace => $autoloadFolder) {
-			if (!$this->namespaceSameRoot($namespace, $autoloadNamespace)) {
-				continue;
-			}
-
-			$subNamespace = str_replace($autoloadNamespace, '', $namespace);
-
-			return $autoloadFolder . str_replace('\\', '/', $subNamespace);
-		}
-
 		return str_replace('\\', '/', $namespace);
 	}
 
 	public function namespaceSameRoot(string $a, string $b): bool
 	{
 		return !empty($a) && !empty($b) && explode('\\', $a)[0] === explode('\\', $b)[0];
-	}
-
-	private function getComposerConfig(): ?array
-	{
-		if (!file_exists(getcwd() . '/composer.json')) {
-			return null;
-		}
-
-		return json_decode(file_get_contents(getcwd() . '/composer.json'), true);
 	}
 }

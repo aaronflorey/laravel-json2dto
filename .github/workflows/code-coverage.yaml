@@ -1,30 +1,48 @@
 name: Code Coverage
 on:
-    push:
-        branches:
-            - main
-    pull_request:
-        branches:
-            - main
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 concurrency:
-    group: ci-${{github.ref}}
-    cancel-in-progress: true
+  group: ci-${{github.ref}}
+  cancel-in-progress: true
 
-phpstan:
+jobs:
+  phpstan:
     name: PHPStan
     runs-on: ubuntu-latest
     steps:
-        - name: Checkout
-          uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-        - name: Setup PHP with PECL extension
-          uses: shivammathur/setup-php@v2
-          with:
-              php-version: '8.2'
-              tools: composer:v2
+      - name: Setup PHP with PECL extension
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
 
-        - uses: ramsey/composer-install@v2
+      - uses: ramsey/composer-install@v2
 
-        - name: Run static analysis
-          run: ./vendor/bin/phpstan analyse --no-progress --error-format=github
+      - name: Run static analysis
+        run: ./vendor/bin/phpstan analyse --no-progress --error-format=github
+  phpunit:
+    name: PHPunit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup PHP with PECL extension
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+
+      - uses: ramsey/composer-install@v2
+
+      - name: Run PHPUnit
+        run: ./vendor/bin/phpunit

@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 class Path
 {
-	public function relativePath(string $from, string $to)
+	public function relativePath(string $from, string $to): string
 	{
 		$fromPath = $this->absolutePath($from);
 		$toPath = $this->absolutePath($to);
@@ -14,15 +14,21 @@ class Path
 		$fromPathParts = explode(\DIRECTORY_SEPARATOR, rtrim((string) $fromPath, \DIRECTORY_SEPARATOR));
 		$toPathParts = explode(\DIRECTORY_SEPARATOR, rtrim((string) $toPath, \DIRECTORY_SEPARATOR));
 
-		while (count($fromPathParts) && count($toPathParts) && ($fromPathParts[0] == $toPathParts[0])) {
+		$fromPathPartsCount = count($fromPathParts);
+		$toPathPartsCount = count($toPathParts);
+
+		while ($fromPathPartsCount && $toPathPartsCount && ($fromPathParts[0] == $toPathParts[0])) {
 			array_shift($fromPathParts);
 			array_shift($toPathParts);
+
+			$fromPathPartsCount = count($fromPathParts);
+			$toPathPartsCount = count($toPathParts);
 		}
 
 		return str_pad('', count($fromPathParts) * 3, '..' . \DIRECTORY_SEPARATOR) . implode(\DIRECTORY_SEPARATOR, $toPathParts);
 	}
 
-	public function absolutePath(string $path)
+	public function absolutePath(string $path): string
 	{
 		$isEmptyPath = (strlen($path) == 0);
 		$isRelativePath = ($path[0] != '/');

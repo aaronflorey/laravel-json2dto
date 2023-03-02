@@ -1744,3 +1744,38 @@ CountersData' is not valid type. at /Users/aaronflorey/Code/jsondto/vendor/nette
 #8 /Users/aaronflorey/Code/jsondto/jsondto(35): LaravelZero\\Framework\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #9 {main}
 "} 
+[2023-03-01 21:50:36] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (InvalidArgumentException(code: 0): Log [default] is not defined. at /Users/aaronflorey/Code/jsondto/vendor/laravel/framework/src/Illuminate/Log/LogManager.php:210)
+[stacktrace]
+#0 /Users/aaronflorey/Code/jsondto/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(135): Illuminate\\Log\\LogManager->resolve('default', NULL)
+#1 /Users/aaronflorey/Code/jsondto/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(122): Illuminate\\Log\\LogManager->get('default')
+#2 /Users/aaronflorey/Code/jsondto/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(645): Illuminate\\Log\\LogManager->driver()
+#3 /Users/aaronflorey/Code/jsondto/vendor/laravel-zero/foundation/src/Illuminate/Foundation/Exceptions/Handler.php(274): Illuminate\\Log\\LogManager->error('Call to undefin...', Array)
+#4 /Users/aaronflorey/Code/jsondto/vendor/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php(46): Illuminate\\Foundation\\Exceptions\\Handler->report(Object(Error))
+#5 /Users/aaronflorey/Code/jsondto/vendor/laravel-zero/foundation/src/Illuminate/Foundation/Console/Kernel.php(454): NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler->report(Object(Error))
+#6 /Users/aaronflorey/Code/jsondto/vendor/laravel-zero/foundation/src/Illuminate/Foundation/Console/Kernel.php(157): Illuminate\\Foundation\\Console\\Kernel->reportException(Object(Error))
+#7 /Users/aaronflorey/Code/jsondto/vendor/laravel-zero/framework/src/Kernel.php(96): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#8 /Users/aaronflorey/Code/jsondto/jsondto(35): LaravelZero\\Framework\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#9 {main}
+"} 
+[2023-03-01 21:50:36] laravel.ERROR: Call to undefined function App\Services\ray() {"exception":"[object] (Error(code: 0): Call to undefined function App\\Services\\ray() at /Users/aaronflorey/Code/jsondto/app/Services/DtoGenerator.php:70)
+[stacktrace]
+#0 /Users/aaronflorey/Code/jsondto/app/Services/DtoGenerator.php(42): App\\Services\\DtoGenerator->createClass(Object(stdClass), 'App\\\\DataObjects...', 'Root')
+#1 /Users/aaronflorey/Code/jsondto/app/Commands/GenerateCommand.php(109): App\\Services\\DtoGenerator->run()
+#2 /Users/aaronflorey/Code/jsondto/app/Commands/GenerateCommand.php(65): App\\Commands\\GenerateCommand->generate('{\"list\":[{\"resp...')
+#3 /Users/aaronflorey/Code/jsondto/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): App\\Commands\\GenerateCommand->handle()
+#4 /Users/aaronflorey/Code/jsondto/vendor/laravel/framework/src/Illuminate/Container/Util.php(41): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#5 /Users/aaronflorey/Code/jsondto/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#6 /Users/aaronflorey/Code/jsondto/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(LaravelZero\\Framework\\Application), Array, Object(Closure))
+#7 /Users/aaronflorey/Code/jsondto/vendor/laravel/framework/src/Illuminate/Container/Container.php(661): Illuminate\\Container\\BoundMethod::call(Object(LaravelZero\\Framework\\Application), Array, Array, NULL)
+#8 /Users/aaronflorey/Code/jsondto/vendor/laravel/framework/src/Illuminate/Console/Command.php(194): Illuminate\\Container\\Container->call(Array)
+#9 /Users/aaronflorey/Code/jsondto/vendor/symfony/console/Command/Command.php(312): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#10 /Users/aaronflorey/Code/jsondto/vendor/laravel/framework/src/Illuminate/Console/Command.php(163): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#11 /Users/aaronflorey/Code/jsondto/vendor/symfony/console/Application.php(1022): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#12 /Users/aaronflorey/Code/jsondto/vendor/symfony/console/Application.php(314): Symfony\\Component\\Console\\Application->doRunCommand(Object(App\\Commands\\GenerateCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#13 /Users/aaronflorey/Code/jsondto/vendor/symfony/console/Application.php(168): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#14 /Users/aaronflorey/Code/jsondto/vendor/laravel/framework/src/Illuminate/Console/Application.php(102): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#15 /Users/aaronflorey/Code/jsondto/vendor/laravel-zero/foundation/src/Illuminate/Foundation/Console/Kernel.php(155): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#16 /Users/aaronflorey/Code/jsondto/vendor/laravel-zero/framework/src/Kernel.php(96): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#17 /Users/aaronflorey/Code/jsondto/jsondto(35): LaravelZero\\Framework\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#18 {main}
+"} 
